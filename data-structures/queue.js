@@ -52,28 +52,51 @@ What's the time complexity?
 
 function Queue(capacity) {
   // implement me...
+  this.capacity = capacity;
+  this.currentIndex = 0;
+  this.frontIndex = 0;
+  this.items = {};
 }
 
 Queue.prototype.enqueue = function(value) {
   // implement me...
+  if (Object.keys(this.items).length < this.capacity) {
+    this.items[this.currentIndex] = value;
+    this.currentIndex += 1;
+  }
 };
 // Time complexity:
 
 Queue.prototype.dequeue = function() {
   // implement me...
+  const item = this.items[this.frontIndex];
+  delete this.items[this.frontIndex];
+  this.frontIndex += 1;
+
+  return item;
 };
 // Time complexity:
 
 Queue.prototype.peek = function() {
   // implement me...
+  return this.items[this.frontIndex];
 };
 
 Queue.prototype.count = function() {
   // implement me...
+  return Object.keys(this.items).length;
 };
 // Time complexity:
 
-
+const teller = new Queue(10);
+console.log(teller.count());
+teller.enqueue("Person 1");
+teller.enqueue("Person 2");
+teller.enqueue("Person 3");
+console.log(teller.count());
+console.log(teller.dequeue());
+console.log(teller.count());
+console.log(teller.peek());
 
 /*
 *** Exercises:
