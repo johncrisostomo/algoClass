@@ -63,6 +63,8 @@ Queue.prototype.enqueue = function(value) {
   if (Object.keys(this.items).length < this.capacity) {
     this.items[this.currentIndex] = value;
     this.currentIndex += 1;
+  } else {
+    return "Max capacity already reached. Remove element before adding a new one.";
   }
 };
 // Time complexity:
@@ -88,15 +90,40 @@ Queue.prototype.count = function() {
 };
 // Time complexity:
 
+Queue.prototype.contains = function(query) {
+  for (let key in this.items) {
+    if (this.items[key] === query) {
+      return true;
+    }
+
+    return false;
+  }
+};
+
+Queue.prototype.until = function(query) {
+  let counter = 0;
+  for (let i = this.frontIndex; i < this.currentIndex; i += 1) {
+    counter += 1;
+    if (this.items[i] === query) {
+      return counter;
+    }
+  }
+
+  return -1;
+};
+
 const teller = new Queue(10);
 console.log(teller.count());
 teller.enqueue("Person 1");
 teller.enqueue("Person 2");
 teller.enqueue("Person 3");
+console.log(teller.until("Person 3"));
+console.log(teller.until("Person 1"));
 console.log(teller.count());
 console.log(teller.dequeue());
 console.log(teller.count());
 console.log(teller.peek());
+console.log(teller.contains("Person 2"));
 
 /*
 *** Exercises:
